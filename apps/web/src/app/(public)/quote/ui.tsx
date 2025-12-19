@@ -30,7 +30,8 @@ export function QuoteWizard() {
   const [photos, setPhotos] = React.useState<File[]>([]);
 
   const form = useForm<QuoteInput>({
-    resolver: zodResolver(quoteSchema),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(quoteSchema) as any,
     mode: "onBlur",
     defaultValues: {
       propertyType: "residential",
