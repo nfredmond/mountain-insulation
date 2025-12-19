@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { cn } from "@/lib/cn";
 import { Container } from "@/components/site/Container";
@@ -25,14 +26,18 @@ export function Header({ className }: { className?: string }) {
       <div className="bg-background/80 backdrop-blur">
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
-            <Link
-              href="/"
-              className="font-display text-lg tracking-tight text-primary"
-            >
-              Mountain Insulation
+            <Link href="/" className="flex items-center gap-2">
+              <Image
+                src="/logo.png"
+                alt="Mountain Insulation"
+                width={140}
+                height={48}
+                className="h-12 w-auto"
+                priority
+              />
             </Link>
 
-            <nav className="hidden items-center gap-6 md:flex">
+            <nav className="hidden items-center gap-6 lg:flex">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -82,9 +87,13 @@ export function Header({ className }: { className?: string }) {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-black/10 px-4 py-3">
-              <div className="font-display text-base text-primary">
-                Mountain Insulation
-              </div>
+              <Image
+                src="/logo.png"
+                alt="Mountain Insulation"
+                width={120}
+                height={40}
+                className="h-10 w-auto"
+              />
               <button
                 type="button"
                 className="rounded-md px-2 py-1 text-sm font-semibold text-primary/80 hover:text-primary"

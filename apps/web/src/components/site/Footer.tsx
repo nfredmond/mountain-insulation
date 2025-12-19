@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { Container } from "@/components/site/Container";
 
@@ -9,12 +10,18 @@ const footerLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-black/10">
+    <footer className="border-t border-black/10 bg-surface">
       <Container className="flex flex-col gap-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-2">
-          <div className="font-display text-base text-primary">
-            Mountain Insulation
-          </div>
+        <div className="space-y-3">
+          <Link href="/">
+            <Image
+              src="/logo.png"
+              alt="Mountain Insulation"
+              width={160}
+              height={54}
+              className="h-14 w-auto"
+            />
+          </Link>
           <div className="text-sm text-primary/70">
             Grass Valley, CA • Nevada County & Sierra Foothills
           </div>
