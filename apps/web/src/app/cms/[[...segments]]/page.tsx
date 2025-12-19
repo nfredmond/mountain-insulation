@@ -8,26 +8,28 @@ const configPromise = import("../../../../payload.config").then((m) => m.default
 const importMap = {} as ImportMap;
 
 type PageProps = {
-  params: { segments?: string[] };
-  searchParams: { [key: string]: string | string[] };
+  params: Promise<{ segments?: string[] }>;
+  searchParams: Promise<{ [key: string]: string | string[] }>;
 };
 
 export default async function CMSPage({ params, searchParams }: PageProps) {
-  const segments = params.segments ?? [];
+  const { segments = [] } = await params;
+  const resolvedSearchParams = await searchParams;
 
   return RootPage({
     config: configPromise,
     importMap,
     params: Promise.resolve({ segments }),
-    searchParams: Promise.resolve(searchParams),
+    searchParams: Promise.resolve(resolvedSearchParams),
   });
 }
 
 export async function generateMetadata({ params, searchParams }: PageProps) {
+  const resolvedSearchParams = await searchParams;
   return generatePageMetadata({
     config: configPromise,
-    params: Promise.resolve(params),
-    searchParams: Promise.resolve(searchParams),
+    params: params,
+    searchParams: Promise.resolve(resolvedSearchParams),
   });
 }
 

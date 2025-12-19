@@ -6,15 +6,16 @@ export const metadata = {
   title: "Thread (Admin)",
 };
 
-type Props = { params: { threadId: string } };
+type Props = { params: Promise<{ threadId: string }> };
 
 export default async function AdminThreadPage({ params }: Props) {
+  const { threadId } = await params;
   const { supabase } = await requireStaff();
 
   const { data: thread } = await supabase
     .from("message_threads")
     .select("id, subject, status, customer_user_id, created_at")
-    .eq("id", params.threadId)
+    .eq("id", threadId)
     .single();
 
   if (!thread) {

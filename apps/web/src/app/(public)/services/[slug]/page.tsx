@@ -4,9 +4,9 @@ import Link from "next/link";
 import { Container } from "@/components/site/Container";
 import { Card } from "@/components/ui/Card";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
-const fallback = {
+const fallback: Record<string, { title: string; summary: string }> = {
   "blown-in": {
     title: "Blown-in Insulation",
     summary:
@@ -37,10 +37,11 @@ const fallback = {
     summary:
       "Warmer floors and improved moisture control, tailored to your crawlspace conditions.",
   },
-} satisfies Record<string, { title: string; summary: string }>;
+};
 
-export default function ServiceDetailPage({ params }: Props) {
-  const service = fallback[params.slug];
+export default async function ServiceDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const service = fallback[slug];
   if (!service) notFound();
 
   return (

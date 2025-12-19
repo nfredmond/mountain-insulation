@@ -2,7 +2,7 @@ import { Container } from "@/components/site/Container";
 import { Card } from "@/components/ui/Card";
 import Link from "next/link";
 
-type Props = { params: { city: string } };
+type Props = { params: Promise<{ city: string }> };
 
 function titleCaseFromSlug(slug: string) {
   return slug
@@ -11,14 +11,16 @@ function titleCaseFromSlug(slug: string) {
     .join(" ");
 }
 
-export function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props) {
+  const { city } = await params;
   return {
-    title: `Insulation in ${titleCaseFromSlug(params.city)}`,
+    title: `Insulation in ${titleCaseFromSlug(city)}`,
   };
 }
 
-export default function CityServiceAreaPage({ params }: Props) {
-  const cityName = titleCaseFromSlug(params.city);
+export default async function CityServiceAreaPage({ params }: Props) {
+  const { city } = await params;
+  const cityName = titleCaseFromSlug(city);
 
   return (
     <Container className="py-16">

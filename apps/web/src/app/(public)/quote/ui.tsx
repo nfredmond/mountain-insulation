@@ -43,7 +43,7 @@ export function QuoteWizard() {
       contactPhone: "",
       propertyAddress: "",
       preferredContactMethod: "email",
-      availability: { notes: "" },
+      availabilityNotes: "",
       additionalNotes: "",
       referralSource: "",
     },
@@ -172,7 +172,7 @@ function fieldsForStep(step: Step): (keyof QuoteInput)[] {
         "contactPhone",
         "propertyAddress",
         "preferredContactMethod",
-        "availability",
+        "availabilityNotes",
       ];
     case 5:
       return ["additionalNotes", "referralSource"];
@@ -276,7 +276,7 @@ function Step2({ form }: { form: ReturnType<typeof useForm<QuoteInput>> }) {
 }
 
 function Step3({ form }: { form: ReturnType<typeof useForm<QuoteInput>> }) {
-  const knownIssues = form.watch("knownIssues") ?? [];
+  const knownIssues = form.watch("knownIssues");
 
   return (
     <div className="grid gap-6 md:grid-cols-2">
@@ -399,7 +399,7 @@ function Step4({ form }: { form: ReturnType<typeof useForm<QuoteInput>> }) {
         <textarea
           className="mt-2 min-h-24 w-full rounded-md border border-black/15 bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-accent"
           placeholder="Best days/times, urgency, gate codes, etc."
-          {...form.register("availability.notes")}
+          {...form.register("availabilityNotes")}
         />
       </label>
     </div>

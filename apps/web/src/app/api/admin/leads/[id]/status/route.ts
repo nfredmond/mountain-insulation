@@ -7,16 +7,17 @@ const schema = z.object({
   status: z.enum(["new", "contacted", "scheduled", "quoted", "won", "lost"]),
 });
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 export async function POST(req: Request, { params }: Props) {
+  const { id } = await params;
   const { supabase } = await requireStaff();
 
   const formData = await req.formData();
   const status = formData.get("status");
   const parsed = schema.safeParse({ status });
   if (!parsed.success) {
-    return NextResponse.redirect(new URL(`/admin/leads/${params.id}`, req.url), {
+    return NextResponse.redirect(new URL(`/admin/leads/${id}`, req.url), {
       status: 303,
     });
   }
@@ -24,9 +25,9 @@ export async function POST(req: Request, { params }: Props) {
   await supabase
     .from("quote_requests")
     .update({ status: parsed.data.status })
-    .eq("id", params.id);
+    .eq("id", id);
 
-  return NextResponse.redirect(new URL(`/admin/leads/${params.id}`, req.url), {
+  return NextResponse.redirect(new URL(`/admin/leads/${id}`, req.url), {
     status: 303,
   });
 }

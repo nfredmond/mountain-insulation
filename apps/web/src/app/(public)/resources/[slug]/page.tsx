@@ -3,9 +3,9 @@ import Link from "next/link";
 
 import { Container } from "@/components/site/Container";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
-const fallback = {
+const fallback: Record<string, { title: string; body: string }> = {
   "attic-needs-insulation": {
     title: "How to know if your attic needs insulation",
     body: "Look for uneven temperatures, high energy bills, visible insulation gaps, and drafts. A walkthrough can confirm depth, coverage, and ventilation.",
@@ -18,10 +18,11 @@ const fallback = {
     title: "Spray foam: when it’s the right tool",
     body: "Spray foam shines in tricky assemblies, rim joists, and where air control is critical—but it’s not always necessary. We’ll recommend the right approach.",
   },
-} satisfies Record<string, { title: string; body: string }>;
+};
 
-export default function ResourceDetailPage({ params }: Props) {
-  const post = fallback[params.slug];
+export default async function ResourceDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const post = fallback[slug];
   if (!post) notFound();
 
   return (

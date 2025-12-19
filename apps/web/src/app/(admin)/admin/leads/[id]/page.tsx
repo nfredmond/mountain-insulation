@@ -6,17 +6,18 @@ export const metadata = {
   title: "Lead",
 };
 
-type Props = { params: { id: string } };
+type Props = { params: Promise<{ id: string }> };
 
 const statuses = ["new", "contacted", "scheduled", "quoted", "won", "lost"] as const;
 
 export default async function LeadDetailPage({ params }: Props) {
+  const { id } = await params;
   const { supabase } = await requireStaff();
 
   const { data: lead } = await supabase
     .from("quote_requests")
     .select("*")
-    .eq("id", params.id)
+    .eq("id", id)
     .single();
 
   if (!lead) {

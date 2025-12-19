@@ -31,6 +31,20 @@ export async function POST(req: Request) {
   const supabase = createSupabaseAdminClient();
   const customerUserId = await getCustomerUserIdSafe();
 
+  // Basic rate limiting: prevent repeated spam for the same email
+  const { count: recentCount } = await supabase
+    .from("quote_requests")
+    .select("id", { count: "exact", head: true })
+    .eq("contact_email", parsed.data.contactEmail)
+    .gte("created_at", new Date(Date.now() - 60 * 60 * 1000).toISOString());
+
+  if ((recentCount ?? 0) >= 5) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429 },
+    );
+  }
+
   const { data: quote, error: insertError } = await supabase
     .from("quote_requests")
     .insert({
@@ -48,7 +62,9 @@ export async function POST(req: Request) {
       contact_phone: parsed.data.contactPhone || null,
       property_address: parsed.data.propertyAddress || null,
       preferred_contact_method: parsed.data.preferredContactMethod || null,
-      availability: parsed.data.availability ?? null,
+      availability: parsed.data.availabilityNotes
+        ? { notes: parsed.data.availabilityNotes }
+        : null,
       additional_notes: parsed.data.additionalNotes || null,
       referral_source: parsed.data.referralSource || null,
       customer_user_id: customerUserId,

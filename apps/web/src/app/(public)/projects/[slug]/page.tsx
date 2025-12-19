@@ -4,9 +4,9 @@ import Link from "next/link";
 import { Container } from "@/components/site/Container";
 import { Card } from "@/components/ui/Card";
 
-type Props = { params: { slug: string } };
+type Props = { params: Promise<{ slug: string }> };
 
-const fallback = {
+const fallback: Record<string, { title: string; summary: string }> = {
   "attic-upgrade-grass-valley": {
     title: "Attic upgrade — Grass Valley",
     summary: "Blown-in upgrade + targeted air sealing for comfort and efficiency.",
@@ -19,10 +19,11 @@ const fallback = {
     title: "Walls + air seal — Penn Valley",
     summary: "Wall insulation improvements paired with air leakage reduction.",
   },
-} satisfies Record<string, { title: string; summary: string }>;
+};
 
-export default function ProjectDetailPage({ params }: Props) {
-  const project = fallback[params.slug];
+export default async function ProjectDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const project = fallback[slug];
   if (!project) notFound();
 
   return (

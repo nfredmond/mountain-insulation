@@ -7,9 +7,10 @@ const schema = z.object({
   body: z.string().min(1).max(4000),
 });
 
-type Props = { params: { threadId: string } };
+type Props = { params: Promise<{ threadId: string }> };
 
 export async function POST(req: Request, { params }: Props) {
+  const { threadId } = await params;
   const supabase = createSupabaseServerClient();
   const {
     data: { user },
@@ -26,7 +27,7 @@ export async function POST(req: Request, { params }: Props) {
   }
 
   const { error } = await supabase.from("messages").insert({
-    thread_id: params.threadId,
+    thread_id: threadId,
     sender_user_id: user.id,
     sender_role: "customer",
     body: parsed.data.body,

@@ -8,9 +8,10 @@ export const metadata = {
   title: "Message thread",
 };
 
-type Props = { params: { threadId: string } };
+type Props = { params: Promise<{ threadId: string }> };
 
 export default async function ThreadPage({ params }: Props) {
+  const { threadId } = await params;
   const supabase = createSupabaseServerClient();
   const {
     data: { user },
@@ -19,7 +20,7 @@ export default async function ThreadPage({ params }: Props) {
   const { data: thread } = await supabase
     .from("message_threads")
     .select("id, subject, status, customer_user_id")
-    .eq("id", params.threadId)
+    .eq("id", threadId)
     .single();
 
   if (!thread || thread.customer_user_id !== user?.id) {
