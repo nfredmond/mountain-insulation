@@ -3,6 +3,7 @@ import { Resend } from "resend";
 
 import { quoteSchema } from "@/lib/quote/schema";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 const BUCKET = "quote-uploads";
 
@@ -28,6 +29,7 @@ export async function POST(req: Request) {
   }
 
   const supabase = createSupabaseAdminClient();
+  const customerUserId = await getCustomerUserIdSafe();
 
   const { data: quote, error: insertError } = await supabase
     .from("quote_requests")
@@ -49,7 +51,7 @@ export async function POST(req: Request) {
       availability: parsed.data.availability ?? null,
       additional_notes: parsed.data.additionalNotes || null,
       referral_source: parsed.data.referralSource || null,
-      customer_user_id: null,
+      customer_user_id: customerUserId,
       assigned_to_user_id: null,
     })
     .select("*")
@@ -147,5 +149,17 @@ async function maybeSendEmails({
     subject: `New quote request (${reference})`,
     text: `New quote request submitted.\n\nReference: ${reference}\nQuote ID: ${quoteId}\nCustomer: ${contactName} <${contactEmail}>\n`,
   });
+}
+
+async function getCustomerUserIdSafe() {
+  try {
+    const supabaseAuth = createSupabaseServerClient();
+    const {
+      data: { user },
+    } = await supabaseAuth.auth.getUser();
+    return user?.id ?? null;
+  } catch {
+    return null;
+  }
 }
 

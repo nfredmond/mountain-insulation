@@ -1,5 +1,6 @@
 import { Container } from "@/components/site/Container";
 import { LoginForm } from "./ui";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -14,6 +15,13 @@ export default function LoginPage() {
 
         <div className="mt-6">
           <LoginForm />
+        </div>
+
+        <div className="mt-4 text-center text-sm text-primary/70">
+          New here?{" "}
+          <Link className="font-semibold underline underline-offset-4" href="/signup">
+            Create an account
+          </Link>
         </div>
       </div>
     </Container>
