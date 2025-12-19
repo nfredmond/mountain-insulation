@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Container } from "@/components/site/Container";
 import { SignupForm } from "./ui";
 
@@ -18,7 +19,9 @@ export default function SignupPage() {
         </p>
 
         <div className="mt-6">
-          <SignupForm />
+          <Suspense fallback={<div className="h-48 animate-pulse rounded bg-primary/5" />}>
+            <SignupForm />
+          </Suspense>
         </div>
       </div>
     </Container>

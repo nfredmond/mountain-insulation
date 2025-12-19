@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Container } from "@/components/site/Container";
 import { LoginForm } from "./ui";
 import Link from "next/link";
@@ -14,7 +15,9 @@ export default function LoginPage() {
         </p>
 
         <div className="mt-6">
-          <LoginForm />
+          <Suspense fallback={<div className="h-48 animate-pulse rounded bg-primary/5" />}>
+            <LoginForm />
+          </Suspense>
         </div>
 
         <div className="mt-4 text-center text-sm text-primary/70">

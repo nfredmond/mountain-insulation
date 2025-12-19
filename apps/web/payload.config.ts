@@ -3,11 +3,13 @@ import { fileURLToPath } from "url";
 
 import { buildConfig } from "payload";
 import { postgresAdapter } from "@payloadcms/db-postgres";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 export default buildConfig({
+  editor: lexicalEditor(),
   serverURL: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   routes: {
     admin: "/cms",
