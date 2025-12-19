@@ -55,12 +55,12 @@ export function QuoteWizard() {
     const fields = fieldsForStep(step) as FieldPath<QuoteInput>[];
     const ok = await form.trigger(fields, { shouldFocus: true });
     if (!ok) return;
-    setStep((s) => Math.min(5, (s + 1) as Step));
+    setStep((s) => Math.min(5, s + 1) as Step);
   }
 
   function back() {
     setError(null);
-    setStep((s) => Math.max(1, (s - 1) as Step));
+    setStep((s) => Math.max(1, s - 1) as Step);
   }
 
   async function onSubmit(values: QuoteInput) {
