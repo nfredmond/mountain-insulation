@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  /* Mountain Insulation — “Sierra Modern” tokens */
+  /* Mountain Insulation — "Sierra Modern" tokens */
   --mi-primary: #2d3436; /* Slate Charcoal */
   --mi-secondary: #1e5631; /* Forest Pine */
   --mi-accent: #b87333; /* Copper Ridge */
@@ -32,4 +32,138 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ======================================
+   ANIMATIONS — Homepage Hero & Effects
+   ====================================== */
+
+/* Fade-in and slide up animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle floating animation for cards */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Glow pulse for accent elements */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(184, 115, 51, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px rgba(184, 115, 51, 0.5);
+  }
+}
+
+/* Accent underline reveal */
+@keyframes underlineReveal {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Animation utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.7s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Staggered animation delays */
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
+.animation-delay-500 { animation-delay: 500ms; }
+.animation-delay-600 { animation-delay: 600ms; }
+.animation-delay-700 { animation-delay: 700ms; }
+
+/* Text shadow utilities for hero text on dark backgrounds */
+.text-shadow-hero {
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4), 0 4px 40px rgba(0, 0, 0, 0.2);
+}
+
+.text-shadow-sm {
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Accent underline effect */
+.accent-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.accent-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--mi-accent), transparent);
+  border-radius: 2px;
+  animation: underlineReveal 0.8s ease-out 0.5s forwards;
+  width: 0;
+}
+
+/* Service card hover effects */
+.service-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: inherit;
+  transition: border-color 0.3s ease;
+  pointer-events: none;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.service-card:hover::before {
+  border-color: var(--mi-accent);
+}
+
+/* Wave divider SVG styling */
+.wave-divider {
+  position: relative;
+  margin-top: -1px;
+}
+
+.wave-divider svg {
+  display: block;
+  width: 100%;
+  height: auto;
 }
