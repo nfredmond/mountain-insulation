@@ -67,25 +67,27 @@ export default function HomePage() {
       />
 
       {/* ===== HERO SECTION ===== */}
-      <section className="relative min-h-[90vh] overflow-hidden">
+      <section className="relative min-h-[90vh] overflow-hidden isolate">
         {/* Background Image - positioned to show darker mountain areas */}
-        <div className="absolute inset-0 -z-20">
+        <div className="absolute inset-0">
           <Image
             src="/hero-mountains.jpg"
             alt=""
             fill
             priority
-            className="object-cover object-bottom scale-110"
+            sizes="100vw"
+            className="object-cover object-bottom"
+            style={{ transform: 'scale(1.1)' }}
           />
         </div>
 
         {/* Strong gradient overlay for text readability */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/70 via-60% to-[var(--mi-neutral-light)]" />
+        <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
 
         {/* Subtle accent glow */}
-        <div className="absolute left-1/4 top-1/3 -z-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute left-1/4 top-1/3 z-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
-        <Container className="relative flex min-h-[90vh] flex-col justify-center py-20 sm:py-28">
+        <Container className="relative z-20 flex min-h-[90vh] flex-col justify-center py-20 sm:py-28">
           <div className="max-w-3xl">
             {/* Badge */}
             <div className="animate-fade-in-up inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold text-white/90 backdrop-blur-sm">
