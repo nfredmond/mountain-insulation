@@ -68,22 +68,22 @@ export default function HomePage() {
 
       {/* ===== HERO SECTION ===== */}
       <section className="relative min-h-[90vh] overflow-hidden">
-        {/* Background Image */}
+        {/* Background Image - positioned to show darker mountain areas */}
         <div className="absolute inset-0 -z-20">
           <Image
             src="/hero-mountains.jpg"
             alt=""
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-bottom scale-110"
           />
         </div>
 
-        {/* Gradient Overlay - dark top, fades to page bg at bottom */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/60 via-black/40 to-[var(--mi-neutral-light)]" />
+        {/* Strong gradient overlay for text readability */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/80 via-black/70 via-60% to-[var(--mi-neutral-light)]" />
 
-        {/* Accent glow */}
-        <div className="absolute left-1/4 top-1/3 -z-10 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
+        {/* Subtle accent glow */}
+        <div className="absolute left-1/4 top-1/3 -z-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
         <Container className="relative flex min-h-[90vh] flex-col justify-center py-20 sm:py-28">
           <div className="max-w-3xl">

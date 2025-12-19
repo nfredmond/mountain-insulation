@@ -105,11 +105,11 @@ body {
 
 /* Text shadow utilities for hero text on dark backgrounds */
 .text-shadow-hero {
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4), 0 4px 40px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4), 0 8px 40px rgba(0, 0, 0, 0.3);
 }
 
 .text-shadow-sm {
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Accent underline effect */

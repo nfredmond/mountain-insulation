@@ -22,8 +22,8 @@ export function Header({ className }: { className?: string }) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   return (
-    <header className={cn("sticky top-0 z-40 border-b border-black/10", className)}>
-      <div className="bg-background/80 backdrop-blur">
+    <header className={cn("sticky top-0 z-40 border-b border-black/10 shadow-sm", className)}>
+      <div className="bg-background/95 backdrop-blur-md">
         <Container className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-2">
