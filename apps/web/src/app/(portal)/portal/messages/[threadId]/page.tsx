@@ -12,7 +12,7 @@ type Props = { params: Promise<{ threadId: string }> };
 
 export default async function ThreadPage({ params }: Props) {
   const { threadId } = await params;
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

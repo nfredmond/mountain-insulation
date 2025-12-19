@@ -169,7 +169,7 @@ async function maybeSendEmails({
 
 async function getCustomerUserIdSafe() {
   try {
-    const supabaseAuth = createSupabaseServerClient();
+    const supabaseAuth = await createSupabaseServerClient();
     const {
       data: { user },
     } = await supabaseAuth.auth.getUser();

@@ -7,7 +7,7 @@ export const metadata = {
 };
 
 export default async function PortalQuotesPage() {
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -11,7 +11,7 @@ type Props = { params: Promise<{ threadId: string }> };
 
 export async function POST(req: Request, { params }: Props) {
   const { threadId } = await params;
-  const supabase = createSupabaseServerClient();
+  const supabase = await createSupabaseServerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
